@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 Pod Choinką Wabików 🎁</title>
+    
+    <!-- Google Fonts for that Festive Feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --xmas-red: #D42426;
+            --xmas-green: #2F5233;
+            --xmas-gold: #F1D570;
+            --xmas-cream: #FDFBF7;
+            --text-color: #2c3e50;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--xmas-green);
+            background-image: radial-gradient(circle at 50% 50%, #3a6340 0%, #1d3621 100%);
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Falling Snow Animation */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #fff;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px #000;
+            animation-name: fall, shake;
+            animation-duration: 10s, 3s;
+            animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite, infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { top: -10%; }
+            100% { top: 100%; }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(80px); }
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--xmas-gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Grid System */
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Gift Card Styling */
+        .card {
+            background: var(--xmas-cream);
+            border-radius: 15px;
+            padding: 0;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            border-top: 8px solid var(--xmas-red);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card::before {
+            /* Holly decoration corner */
+            content: '🎁';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            transform: rotate(45deg);
+        }
+
+        .card-header {
+            padding: 1.5rem 1.5rem 0.5rem;
+            text-align: center;
+            border-bottom: 2px dashed #e0e0e0;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background-color: var(--xmas-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--xmas-gold);
+        }
+
+        .card h2 {
+            color: var(--xmas-red);
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Gift List Items */
+        .gift-list {
+            list-style: none;
+        }
+
+        .gift-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .gift-item:hover {
+            background-color: #fff5f5;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--xmas-red);
+            border-radius: 4px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .gift-item.bought {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .gift-item.bought .checkbox {
+            background-color: var(--xmas-red);
+        }
+
+        .gift-item.bought .checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .price-tag {
+            margin-left: auto;
+            background-color: var(--xmas-gold);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--xmas-cream);
+            padding: 3rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Tweaks */
+        @media (max-width: 600px) {
+            h1 { font-size: 3rem; }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Snowflakes Container -->
+    <div class="snowflakes" aria-hidden="true" id="snow-container"></div>
+
+    <div class="container">
+        <header>
+            <h1>Choinka Wabików</h1>
+            <div class="subtitle">Najbardziej chcę dostać ... 🎁</div>
+        </header>
+
+        <!-- This is where the Javascript will inject the cards -->
+        <div id="app" class="wishlist-grid"></div>
+
+        <footer>
+            <p>Made with ❤️</p>
+        </footer>
+    </div>
+
+    <script>
+        // -------------------------------------------------------
+        // 1. THE JSON DATASOURCE
+        // -------------------------------------------------------
+        const wishlistData = [
+            {
+                "id": 1,
+                "name": "Karolcia",
+                "initials": "K",
+                "wishes": [
+                    { "item": "Rękawiczki", "price": "🧤" },
+                    { "item": "Torba sportowa z miejscem na rakietę", "price": "🎾" },
+                    { "item": "Keyboard", "price": "🎹" },
+                    { "item": "Parownica do ubrań", "price": "👚" },
+					{ "item": "Poduszka z gryki", "price": "🌼" },
+					{ "item": "Skarpety", "price": "🧦" },
+					{ "item": "Maska antysmogowa", "price": "😷" },
+					{ "item": "Słuchawki do-uszne", "price": "🎧" },
+					{ "item": "Kosmetyki mile widziane", "price": "😊" },
+					{ "item": "Gra planszowa Brass: Birmingham (edycja polska) Rebel", "price": "🎲" },
+					{ "item": "Gra planszowa Ego", "price": "🎲" },
+					{ "item": "Gra planszowa Alias", "price": "🎲" },
+					{ "item": "Hantelki 3,5,8 kg", "price": "💪🏻" },
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Paweuek",
+                "initials": "P",
+                "wishes": [
+					{ "item": "Co łaska 😊", "price": "?" },
+                    { "item": "Lego", "price": "🙈" },
+                    { "item": "Hulajnoga", "price": "🛴" },
+                    { "item": "Scyzoryk", "price": "🗡" },
+                    { "item": "Skarpety", "price": "🧦" },
+					{ "item": "Sweterek", "price": "👘" }
+                ]
+            },
+            {
+                "id": 3,
+                "name": "Kto nastempny?",
+                "initials": "?",
+                "wishes": [
+                    { "item": "...", "price": "$$$" }
+                ]
+            }
+        ];
+
+        // -------------------------------------------------------
+        // 2. LOGIC TO RENDER THE WISHLIST
+        // -------------------------------------------------------
+        
+        const appContainer = document.getElementById('app');
+
+        function renderWishlist() {
+            appContainer.innerHTML = ''; // Clear existing
+
+            wishlistData.forEach(person => {
+                // Create Card Element
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                // Generate HTML for the items list
+                const itemsHtml = person.wishes.map((wish, index) => {
+                    // Create a unique ID for checking logic (in a real app this would be DB based)
+                    const uniqueId = `${person.id}-${index}`;
+                    return `
+                        <li class="gift-item" onclick="toggleItem(this)">
+                            <div class="checkbox"></div>
+                            <span>${wish.item}</span>
+                            <span class="price-tag">${wish.price}</span>
+                        </li>
+                    `;
+                }).join('');
+
+                // Assemble the card HTML
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="avatar">${person.initials}</div>
+                        <h2>${person.name}</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="gift-list">
+                            ${itemsHtml}
+                        </ul>
+                    </div>
+                `;
+
+                appContainer.appendChild(card);
+            });
+        }
+
+        // Toggle 'Bought' status
+        function toggleItem(element) {
+            element.classList.toggle('bought');
+        }
+
+        // -------------------------------------------------------
+        // 3. CREATE SNOW EFFECT
+        // -------------------------------------------------------
+        function createSnow() {
+            const snowContainer = document.getElementById('snow-container');
+            const numberOfSnowflakes = 30;
+
+            for (let i = 0; i < numberOfSnowflakes; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.innerHTML = '❅';
+                
+                // Random positioning and animation delays to make it look natural
+                flake.style.left = Math.random() * 100 + '%';
+                flake.style.animationDuration = (Math.random() * 5 + 5) + 's, ' + (Math.random() * 3 + 2) + 's';
+                flake.style.animationDelay = (Math.random() * 5) + 's';
+                flake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                flake.style.opacity = Math.random();
+                
+                snowContainer.appendChild(flake);
+            }
+        }
+
+        // Initialize
+        renderWishlist();
+        createSnow();
+
+    </script>
+</body>
+</html>
